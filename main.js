@@ -20,6 +20,28 @@ document.getElementById("copy-mail").addEventListener("click", async () => {
   } // clipboard blocked (e.g. file://) — show it instead
 });
 
+// (2) Mobile menu — toggle the nav panel and keep ARIA honest.
+const navToggle = document.getElementById("navToggle");
+const primaryNav = document.getElementById("primaryNav");
+function setMenu(open) {
+  primaryNav.classList.toggle("is-open", open);
+  navToggle.setAttribute("aria-expanded", String(open));
+  navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+}
+navToggle.addEventListener("click", () =>
+  setMenu(!primaryNav.classList.contains("is-open")),
+);
+// Close after tapping a link, on Escape, and if the viewport grows back to desktop.
+primaryNav.addEventListener("click", (e) => {
+  if (e.target.closest("a")) setMenu(false);
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") setMenu(false);
+});
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 900) setMenu(false);
+});
+
 // (2) Highlight the nav link for whichever section is on screen.
 const links = [...document.querySelectorAll('.nav a[href^="#"]')];
 const byId = Object.fromEntries(

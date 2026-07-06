@@ -124,6 +124,22 @@ h3 {
 }
 
 /* ═══ STICKY HEADER (menu bar) ═══ requirement: sticky. */
+
+.nav__toggle {
+  display: none;
+  margin-left: auto;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--panel);
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
 .site-head {
   position: sticky;
   top: 0;
@@ -201,7 +217,36 @@ h3 {
 }
 .nav__toggle {
   display: none;
-} /* becomes a scroll cue on mobile */
+  margin-left: auto;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--panel);
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+.nav__toggle:hover {
+  border-color: var(--iris);
+  color: var(--iris);
+}
+.nav__toggle svg {
+  width: 22px;
+  height: 22px;
+}
+.nav__toggle .x {
+  display: none;
+}
+.nav__toggle[aria-expanded="true"] .bars {
+  display: none;
+}
+.nav__toggle[aria-expanded="true"] .x {
+  display: block;
+}
 
 /* ═══ HERO ═══ requirement: photo lives here. */
 .hero {
@@ -889,19 +934,6 @@ section {
   .cards {
     grid-template-columns: 1fr;
   }
-  .nav {
-    gap: 0.1rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin-left: auto;
-    max-width: 64vw;
-    padding-bottom: 2px;
-  }
-  .nav a {
-    white-space: nowrap;
-    padding: 0.4rem 0.55rem;
-    font-size: 0.85rem;
-  }
   .diff__head {
     flex-wrap: wrap;
   }
@@ -909,6 +941,45 @@ section {
     max-width: 100%;
     margin-left: 0;
     text-align: left;
+  }
+
+  /* ── Header collapses to a hamburger menu ── */
+  .nav__toggle {
+    display: inline-flex;
+  }
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0; /* anchors to sticky header */
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+    margin-left: 0;
+    padding: 0.6rem;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    max-height: calc(100vh - var(--head-h));
+    overflow-y: auto;
+    display: none; /* closed by default */
+  }
+  .nav.is-open {
+    display: flex;
+  } /* toggled by JS */
+  .nav a {
+    font-size: 1rem;
+    padding: 0.8rem 0.9rem;
+    border-radius: 10px;
+  }
+  .nav a:hover {
+    background: var(--paper-2);
+  }
+  .nav__cv {
+    margin-left: 0;
+    justify-content: center;
+    text-align: center;
+    margin-top: 0.25rem;
   }
 }
 @media (max-width: 560px) {
