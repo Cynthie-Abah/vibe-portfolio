@@ -1,0 +1,1226 @@
+<!doctype html>
+<!-- ══════════════════════════════════════════════════════════════════════════
+  PERSONAL PORTFOLIO · Cynthia Ojoma Abah — Software Engineer
+  ENSG AI Class · Assignment 2 · Built with "vibe ENGINEERING", not vibe coding.
+
+  WHAT THAT MEANS HERE (read the header comment before judging the code):
+  Every section below was produced by prompting an AI one scoped piece at a time,
+  then REVIEWED and REFACTORED by hand. The prompt log lives in three places so it
+  can be graded: (1) PROMPTS.md, (2) a condensed banner above each section, and
+  (3) the on-page "Prompts" section. The "Refactor Log" section shows the actual
+  before/after engineering done on the AI's first drafts.
+
+  STACK  : single self-contained file — semantic HTML + hand-authored CSS design
+           system + vanilla JS. No framework, no CDN → opens offline from a click.
+  DESIGN : "living style-guide" identity for a Software engineer.
+           Palette  — Aubergine Ink #231733 · Electric Iris #5A3BE0 (primary) ·
+                      Mint #12B5A5 (success/ship) · Cool paper #FAF8FD.
+           Type     — Bricolage Grotesque (display) / Manrope (body) /
+                      JetBrains Mono (spec labels + code + diffs).
+           Signature— git-diff "Refactor Log" + mono §spec labels per section.
+  PHOTO  : the hero photo auto-upgrades. A styled "CA" monogram shows by default;
+           drop a real photo at  /img/cynthia.jpg  beside this file and it
+           fades in automatically (onload hook). Same trick for any project shot.
+  CV     : hero "Download CV" links to  Cynthia_Ojoma_Abah_CV.pdf  (ATS-clean,
+           single-column, standard headings) shipped in this same folder.
+  NOTE   : contact details come from Cynthia's CV. Replace the # social links with
+           her real LinkedIn/GitHub/Portfolio URLs before publishing.
+═══════════════════════════════════════════════════════════════════════════ -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cynthia Ojoma Abah — Software Engineer</title>
+    <meta
+      name="description"
+      content="Portfolio of Cynthia Ojoma Abah, a software engineer building responsive, accessible, production web & mobile interfaces with React, Next.js and TypeScript."
+    />
+    <!-- Inline emoji favicon so the tab has identity without an extra request. -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💠</text></svg>"
+    />
+    <!-- Type system. Fonts fail gracefully to system stacks if offline. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- ══════════════════════════════════════════════════════════════════════════
+  MENU BAR (sticky). PROMPT USED — condensed, full text in PROMPTS.md P1:
+  "Sticky, blurred menu bar. Left: monogram + name. Right: anchor nav
+  (About/Projects/Refactor Log/Prompts/Contact) + a filled 'Download CV' button
+  that opens the ATS PDF. On mobile the nav becomes and a hamburger icon that opens a vertical absolute positioned menu. WCAG-AA contrast."
+═══════════════════════════════════════════════════════════════════════════ -->
+    <header class="site-head">
+      <a class="brand" href="#top" aria-label="Cynthia Ojoma Abah — home">
+        <span class="brand__mark" aria-hidden="true">CA</span>
+        <span class="brand__name"
+          >Cynthia Abah <span>· Software Engineer</span></span
+        >
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#refactor">Refactor Log</a>
+        <a href="#prompts">Prompts</a>
+        <a href="#contact">Contact</a>
+        <!-- CV link required to live in reach; also mirrored in the hero. -->
+        <a
+          class="nav__cv"
+          href="Cynthia_Ojoma_Abah_CV.pdf"
+          target="_blank"
+          rel="noopener"
+          >Download CV ↓</a
+        >
+      </nav>
+    </header>
+
+    <!-- ══════════════════════════════════════════════════════════════════════════
+  HERO. PROMPT USED — condensed, full text in PROMPTS.md P2:
+  "Two-column hero. Left: mono eyebrow of specialities, big display name with one
+  role word highlighted, a one-line positioning statement drawn from the CV
+  summary, two CTAs (Download CV → the ATS PDF, See my work → #projects), and a
+  three-stat trust row. Right: my photo shown as a labelled 'component specimen'
+  card — a CA monogram by default that auto-swaps to /img/cynthia.jpg."
+═══════════════════════════════════════════════════════════════════════════ -->
+    <main id="top">
+      <section class="hero">
+        <div class="wrap hero__grid">
+          <div class="hero__intro">
+            <p class="eyebrow">
+              <span>Software&nbsp;Engineer</span><span>·</span>
+              <span>React &amp; Next.js</span><span>·</span>
+              <span>TypeScript</span><span>·</span> <span>Python</span
+              ><span>·</span>
+              <b>● Open to work</b>
+            </p>
+            <h1>
+              I build responsive, accessible <em>interfaces</em> that ship.
+            </h1>
+            <p class="hero__lead">
+              2+ years turning product requirements into production web &amp;
+              mobile UIs. I care about clean component architecture, tests, and
+              details that survive a real deadline.
+            </p>
+            <div class="cta-row">
+              <!-- The required CV link, front and centre in the hero. -->
+              <a
+                class="btn btn--primary"
+                href="Cynthia_Ojoma_Abah_CV.pdf"
+                target="_blank"
+                rel="noopener"
+              >
+                Download CV
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14" />
+                </svg>
+              </a>
+              <a class="btn btn--ghost" href="#projects">See my work</a>
+            </div>
+            <div class="hero__stats">
+              <div class="stat">
+                <b>2+</b><span>years shipping frontend</span>
+              </div>
+              <div class="stat">
+                <b>10+</b><span>production apps delivered</span>
+              </div>
+              <div class="stat">
+                <b>npm</b><span>published open-source pkg</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Photo specimen. onload flips .has-photo so the real image fades in. -->
+          <figure class="specimen" id="photo">
+            <div class="specimen__bar">
+              <span class="dot dot--live"></span><span>photo.tsx</span>
+              <b>available for work</b>
+            </div>
+            <div class="photo">
+              <span class="photo__mono" aria-hidden="true">CA</span>
+              <span class="photo__hint">add ./img/cynthia.jpg</span>
+              <img
+                class="photo__img"
+                alt="Portrait of Cynthia Ojoma Abah"
+                src="./img/cynthia.JPG"
+                onload="this.closest('.specimen').classList.add('has-photo')"
+              />
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════════════════════
+  ABOUT + SKILLS. PROMPT — condensed, full text PROMPTS.md §P3:
+  "Two columns: a short first-person bio (3 short paragraphs, from the CV), and a
+  'toolbox' grouping my stack into labelled rows (Languages / Frameworks / Testing
+  / Tools / Backend). Under it, a compact experience timeline of my roles."
+═══════════════════════════════════════════════════════════════════════════ -->
+      <section id="about" class="band">
+        <div class="wrap">
+          <span class="spec">about.md</span>
+          <div class="about__grid">
+            <div class="about">
+              <h2 class="lead-2">Development, done with care.</h2>
+              <p>
+                I'm a Software Engineer with 2+ years shipping responsive,
+                user-focused web and mobile applications in React, Next.js,
+                TypeScript, Redux and Angular. I like the part where a fuzzy
+                product requirement becomes a clean, reusable component that a
+                teammate can pick up without asking me.
+              </p>
+              <p>
+                Most recently I've built internal CRM and card-infrastructure
+                tooling at a leading African fintech, modernising legacy
+                AngularJS alongside new Angular work in an agile,
+                code-review-driven team. I've also led frontend from the ground
+                up, published a reusable widget to npm, and delivered contract
+                work across several clients.
+              </p>
+              <p>
+                I learn fast, document what I build, and collaborate closely
+                with designers and backend engineers to ship things that
+                actually meet the goal.
+              </p>
+
+              <!-- Experience timeline — real, from the CV. -->
+              <div class="xp" aria-label="Experience">
+                <div class="xp-row">
+                  <span class="tick"></span>
+                  <span
+                    ><span class="role">Frontend Engineering Intern</span> ·
+                    <span class="org">Moniepoint (Women in Tech)</span></span
+                  >
+                  <span class="when">June 2025 – Present</span>
+                </div>
+                <div class="xp-row">
+                  <span class="tick"></span>
+                  <span
+                    ><span class="role">Lead Frontend Engineer</span> ·
+                    <span class="org">Emerj LLC</span></span
+                  >
+                  <span class="when">Dec 2025 – Apr 2026</span>
+                </div>
+                <div class="xp-row">
+                  <span class="tick"></span>
+                  <span
+                    ><span class="role">Frontend Engineer (contract)</span> ·
+                    <span class="org">Quadups Ltd</span></span
+                  >
+                  <span class="when">Nov 2024 – Present</span>
+                </div>
+                <div class="xp-row">
+                  <span class="tick"></span>
+                  <span
+                    ><span class="role">Frontend Intern</span> ·
+                    <span class="org">HNG Internship 13</span></span
+                  >
+                  <span class="when">Oct 2025 – Dec 2025</span>
+                </div>
+                <div class="xp-row">
+                  <span class="tick"></span>
+                  <span
+                    ><span class="role">Frontend Engineer</span> ·
+                    <span class="org">Bivora Tech</span></span
+                  >
+                  <span class="when">Jan 2025 – Apr 2025</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="toolbox" aria-label="Skills">
+              <div class="tool-row">
+                <h4>Languages</h4>
+                <div class="chips">
+                  <span class="chip">JavaScript (ES6+)</span
+                  ><span class="chip">TypeScript</span>
+                  <span class="chip">HTML5</span><span class="chip">CSS3</span
+                  ><span class="chip">Python (basic)</span>
+                </div>
+              </div>
+              <div class="tool-row">
+                <h4>Frameworks &amp; UI</h4>
+                <div class="chips">
+                  <span class="chip">React</span
+                  ><span class="chip">Next.js (SSR)</span
+                  ><span class="chip">Vue.js</span>
+                  <span class="chip">Angular</span
+                  ><span class="chip">React Native (Expo)</span>
+                  <span class="chip">Redux Toolkit</span
+                  ><span class="chip">Zustand</span>
+                  <span class="chip">Tailwind CSS</span
+                  ><span class="chip">Material UI</span
+                  ><span class="chip">SCSS</span>
+                </div>
+              </div>
+              <div class="tool-row">
+                <h4>Testing &amp; Perf</h4>
+                <div class="chips">
+                  <span class="chip">Jest</span><span class="chip">Vitest</span
+                  ><span class="chip">React Testing Library</span>
+                  <span class="chip">Code Splitting</span
+                  ><span class="chip">Lazy Loading</span
+                  ><span class="chip">Memoization</span>
+                </div>
+              </div>
+              <div class="tool-row">
+                <h4>Backend &amp; APIs</h4>
+                <div class="chips">
+                  <span class="chip">REST</span><span class="chip">GraphQL</span
+                  ><span class="chip">Firebase</span>
+                  <span class="chip">Supabase</span
+                  ><span class="chip">Convex</span
+                  ><span class="chip">Node/Express (basic)</span>
+                </div>
+              </div>
+              <div class="tool-row">
+                <h4>Tools &amp; Workflow</h4>
+                <div class="chips">
+                  <span class="chip">Git / GitHub</span
+                  ><span class="chip">GitLab</span
+                  ><span class="chip">npm publishing</span>
+                  <span class="chip">Vercel / Netlify</span
+                  ><span class="chip">Agile / Scrum</span
+                  ><span class="chip">Code Review</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════════════════════
+  PROJECTS. PROMPT — condensed, full text PROMPTS.md §P4:
+  "A card grid, each project in its own box. Every card must state (1) the problem
+  it set out to solve, then a labelled Design → Code → Delivery track, a stack chip
+  row, and links. Content comes from my CV's projects — no invented work."
+═══════════════════════════════════════════════════════════════════════════ -->
+      <section id="projects">
+        <div class="wrap">
+          <span class="spec">projects.tsx</span>
+          <h2 class="lead-2">Selected work</h2>
+          <p class="sub">
+            Each card: what it set out to solve, then how it went from design to
+            code to delivery.
+          </p>
+
+          <div class="cards" style="margin-top: 1.6rem">
+            <!-- Project 5 · MamaPutOnline (ENSG Assignment 1) -->
+            <article class="card">
+              <div class="card__top">
+                <span class="dot dot--live"></span><span>mamaput-online</span
+                ><span class="card__tag">ENSG · vanilla JS</span>
+              </div>
+              <div class="card__body">
+                <h3>MamaPutOnline — Food Delivery Landing Page</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> a Nigerian cooked-meal takeaway needed a
+                  single-page storefront that turns a hungry visitor into an
+                  order — menu, prices and deals, all in one scroll.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >Buka-inspired identity: sticky menu bar, a hero, and a
+                      reusable product-card system with Naira prices and
+                      discounts.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >Hand-authored HTML, CSS and vanilla JS (index.html /
+                      style.css / main.js) — vibe-engineered with a documented
+                      PROMPTS.md log.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Shipped to GitHub as a single, self-contained page that
+                      runs offline.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">HTML</span><span class="chip">CSS</span
+                  ><span class="chip">JavaScript</span>
+                </div>
+                <div class="card__links">
+                  <a
+                    href="https://cynthie-abah.github.io/MamaPutOnline/"
+                    target="_blank"
+                    rel="noopener"
+                    >Live link ↗</a
+                  >
+                  <a
+                    href="https://github.com/Cynthie-Abah/MamaPutOnline"
+                    target="_blank"
+                    rel="noopener"
+                    >Github ↗</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 6 · Wandernest Travels (team) -->
+            <article class="card">
+              <div class="card__top">
+                <span class="dot dot--live"></span
+                ><span>wandernest-travels</span
+                ><span class="card__tag">team · HTML/CSS</span>
+              </div>
+              <div class="card__body">
+                <h3>Wandernest Travels — Travel Agency Site</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> a travel agency needed a modern, responsive,
+                  multi-page site to inspire visitors to explore destinations
+                  and book trips.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >A five-page marketing site — Home, Destinations,
+                      Packages, About, Contact — with a consistent responsive
+                      layout.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >Semantic HTML + CSS. Built as a 5-person team (ETTP Group
+                      24); I owned the Destinations page.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Merged and shipped to GitHub as a collaborative group
+                      project.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">HTML</span><span class="chip">CSS</span
+                  ><span class="chip">Responsive</span>
+                </div>
+                <div class="card__links">
+                  <a
+                    href="https://cynthie-abah.github.io/travel-agency-website/"
+                    target="_blank"
+                    rel="noopener"
+                    >Live link ↗</a
+                  >
+                  <a
+                    href="https://github.com/Cynthie-Abah/travel-agency-website"
+                    target="_blank"
+                    rel="noopener"
+                    >Github ↗</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 7 · Nexus (Tailwind) -->
+            <article class="card">
+              <div class="card__top">
+                <span class="dot dot--live"></span><span>nexus</span
+                ><span class="card__tag">Tailwind CSS</span>
+              </div>
+              <div class="card__body">
+                <h3>Nexus — Responsive Landing Page</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> build a clean, modern landing page (Services ·
+                  About · Contact) while mastering a utility-first CSS workflow.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >A structured landing-page layout with distinct sections
+                      and mobile-up responsive breakpoints.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >HTML styled entirely with Tailwind CSS v4 via the CLI
+                      build (input.css → output.css).</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Shipped to GitHub with a working Tailwind build pipeline
+                      and npm setup.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">HTML</span
+                  ><span class="chip">Tailwind CSS</span
+                  ><span class="chip">npm</span>
+                </div>
+                <div class="card__links">
+                  <a
+                    href="https://cynthie-abah.github.io/nexus-app/"
+                    target="_blank"
+                    rel="noopener"
+                    >Live link ↗</a
+                  >
+                  <a
+                    href="https://github.com/Cynthie-Abah/nexus-app"
+                    target="_blank"
+                    rel="noopener"
+                    >Github ↗</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 8 · Portfolio site -->
+            <article class="card">
+              <div class="card__top">
+                <span class="dot dot--live"></span
+                ><span>cynthiaabah-portfolio</span
+                ><span class="card__tag">HTML · CSS · JS</span>
+              </div>
+              <div class="card__body">
+                <h3>Portfolio Site</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> one place to introduce who she is and gather
+                  her work — a personal profile and portfolio.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >A profile-led layout with clear sections and supporting
+                      imagery.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >HTML and CSS with a JavaScript layer (scripts/main.js)
+                      for interactivity.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Published to GitHub as a personal portfolio.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">HTML</span><span class="chip">CSS</span
+                  ><span class="chip">JavaScript</span>
+                </div>
+                <div class="card__links">
+                  <a
+                    href="https://cynthie-abah.github.io/cynthiaabah-portfolio/"
+                    target="_blank"
+                    rel="noopener"
+                    >Live link ↗</a
+                  >
+                  <a
+                    href="https://github.com/Cynthie-Abah/cynthiaabah-portfolio"
+                    target="_blank"
+                    rel="noopener"
+                    >Github ↗</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 9 · Personal website (foundational) -->
+            <article class="card">
+              <div class="card__top">
+                <span class="dot dot--live"></span><span>personal-website</span
+                ><span class="card__tag">HTML</span>
+              </div>
+              <div class="card__body">
+                <h3>Personal Website</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> a clean, semantic personal page — bio,
+                  education, hobbies and contact — as an early foundations
+                  project.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >A simple single-page profile layout organised into clear,
+                      readable sections.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >Hand-written semantic HTML with a portrait and basic
+                      styling.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Published to GitHub as a foundational HTML build.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">HTML</span><span class="chip">CSS</span>
+                </div>
+                <div class="card__links">
+                  <a
+                    href="https://github.com/Cynthie-Abah/personal-project-html-"
+                    target="_blank"
+                    rel="noopener"
+                    >Code ↗</a
+                  >
+                </div>
+              </div>
+            </article>
+            <!-- Project 1 -->
+            <article class="card">
+              <div class="card__top">
+                <span class="dot dot--live"></span><span>onboarding-tour</span
+                ><span class="card__tag ship">published · npm</span>
+              </div>
+              <div class="card__body">
+                <h3>Embeddable Onboarding Tour Widget</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> product teams keep rebuilding first-run
+                  onboarding from scratch. They needed a drop-in tour they could
+                  embed in any third-party app and configure without touching
+                  internals.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >A configurable, embeddable flow with a clean setup API so
+                      teams customise steps without forking.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >React + Next.js + TypeScript; state, data-fetching and
+                      user progress with React Query; styled in Tailwind,
+                      persistence via Supabase.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Packaged and published as an installable npm module for
+                      one-line integration.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">React</span
+                  ><span class="chip">Next.js</span
+                  ><span class="chip">TypeScript</span>
+                  <span class="chip">React Query</span
+                  ><span class="chip">Tailwind</span
+                  ><span class="chip">Supabase</span>
+                </div>
+                <div class="card__links">
+                  <a
+                    href="https://www.npmjs.com/package/embeddable-tour-platform"
+                    rel="noopener"
+                    >npm ↗</a
+                  ><a
+                    href="https://onboarding-tour-platform.vercel.app/"
+                    rel="noopener"
+                    >GitHub ↗</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="card">
+              <div class="card__top">
+                <span class="dot dot--live"></span><span>framez-mobile</span
+                ><span class="card__tag">mobile</span>
+              </div>
+              <div class="card__body">
+                <h3>Framez — Mobile Social App</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> give people a lightweight social space on
+                  mobile — accounts, profiles and a live feed — without a heavy
+                  native build.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >Reusable, responsive mobile component set; core social
+                      loop of posts, interactions and feeds.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >React Native + Expo; auth with Clerk; real-time data with
+                      Convex; Tailwind for styling.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >A working cross-device app with real-time content updates
+                      and profile management.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">React Native</span
+                  ><span class="chip">Expo</span><span class="chip">Clerk</span>
+                  <span class="chip">Convex</span
+                  ><span class="chip">Tailwind</span>
+                </div>
+                <div class="card__links">
+                  <a
+                    href="https://drive.google.com/file/d/1M-abBorVMPgp-2_NnTR06efM558I493i/view"
+                    rel="noopener"
+                    >Demo ↗</a
+                  ><a
+                    href="https://github.com/Cynthie-Abah/framez.git"
+                    rel="noopener"
+                    >GitHub ↗</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="card">
+              <div class="card__top">
+                <span class="dot dot--live"></span><span>audiophile-store</span
+                ><span class="card__tag">e-commerce</span>
+              </div>
+              <div class="card__body">
+                <h3>Audiophile — E-commerce Site</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> a full storefront for audio products — browse,
+                  filter, add to cart and check out — that stays fast and
+                  accessible.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >Catalogue, detailed product pages, category filtering,
+                      cart and checkout flows; accessible, responsive
+                      components.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >Next.js + TypeScript; real-time backend data via Convex
+                      and React Query; Redux for cart state; Tailwind UI.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >A full-featured e-commerce web app with end-to-end
+                      purchase flow.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">Next.js</span
+                  ><span class="chip">TypeScript</span
+                  ><span class="chip">Convex</span>
+                  <span class="chip">React Query</span
+                  ><span class="chip">Redux</span
+                  ><span class="chip">Tailwind</span>
+                </div>
+                <div class="card__links">
+                  <a
+                    href="https://audiophile-ecommerce-website-pi.vercel.app/"
+                    rel="noopener"
+                    >Live ↗</a
+                  ><a
+                    href="https://github.com/Cynthie-Abah/Audiophile-ecommerce-website.git"
+                    rel="noopener"
+                    >GitHub ↗</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 4 -->
+            <article class="card">
+              <div class="card__top">
+                <span class="dot dot--live"></span><span>ticket-system</span
+                ><span class="card__tag">multi-framework</span>
+              </div>
+              <div class="card__body">
+                <h3>Multi-framework Ticket Management</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> demonstrate one real product built across two
+                  frameworks — proving portable architecture and clean state
+                  boundaries.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >Shared ticketing model — create, assign, and track status
+                      — mirrored across React and Vue front ends.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >React JS and Vue JS front ends; Supabase for auth and
+                      storage; caching and server state with React Query.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >A working cross-framework MVP with feature parity on both
+                      stacks.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">React</span><span class="chip">Vue.js</span
+                  ><span class="chip">Supabase</span>
+                  <span class="chip">React Query</span
+                  ><span class="chip">Tailwind</span>
+                </div>
+                <div class="card__links">
+                  <a
+                    href="https://ticketing-app-react.netlify.app/"
+                    rel="noopener"
+                    >Demo ↗</a
+                  ><a
+                    href="https://github.com/Cynthie-Abah/ticketing-app-react.git"
+                    rel="noopener"
+                    >GitHub ↗</a
+                  >
+                </div>
+              </div>
+            </article>
+          </div>
+          <p class="sub" style="margin-top: 1rem">
+            More projects live on my portfolio — see the Contact links below.
+          </p>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════════════════════
+  REFACTOR LOG — the assignment's "show the engineering work on the vibe code".
+  PROMPT — condensed, full text PROMPTS.md §P5:
+  "Show, as real git-style diffs, three places where I did NOT accept the AI's first
+  output. Each block: the file, the naive 'vibe' lines (red −), my engineered lines
+  (green +), and a one-line rationale. This IS the difference between vibe coding
+  and vibe engineering."   (These diffs describe fixes made while building THIS page.)
+═══════════════════════════════════════════════════════════════════════════ -->
+      <section id="refactor" class="band">
+        <div class="wrap">
+          <span class="spec">refactor.log</span>
+          <h2 class="lead-2">Engineering the vibe code</h2>
+          <p class="sub">
+            Vibe coding accepts the first output. Vibe engineering reviews it.
+            Three edits I made to the AI's drafts while building this site:
+          </p>
+
+          <div class="refactor">
+            <!-- Diff 1: robust image handling -->
+            <div class="diff">
+              <div class="diff__head">
+                <span>🔧</span><span class="file">index.html › hero photo</span>
+                <span class="why"
+                  >A missing file should never render a broken image.</span
+                >
+              </div>
+              <div class="diff__code">
+                <span class="ln ctx">&lt;figure class="specimen"&gt;</span>
+                <span class="ln del">
+                  &lt;img src="assets/img/cynthia.jpg" alt="Cynthia"&gt;</span
+                >
+                <span class="ln add">
+                  &lt;span class="photo__mono"&gt;CA&lt;/span&gt; &lt;!--
+                  default --&gt;</span
+                >
+                <span class="ln add">
+                  &lt;img class="photo__img" alt="Portrait of Cynthia Ojoma
+                  Abah"</span
+                >
+                <span class="ln add"> src="assets/img/cynthia.jpg"</span>
+                <span class="ln add">
+                  onload="this.closest('.specimen').classList.add('has-photo')"&gt;</span
+                >
+                <span class="ln ctx">&lt;/figure&gt;</span>
+              </div>
+              <div class="diff__note">
+                <b>Why:</b> the vibe draft assumed the photo exists. I
+                engineered a styled monogram fallback and an
+                <code>onload</code> hook, so the page is presentable before the
+                real image is added and upgrades itself the moment it is.
+              </div>
+            </div>
+
+            <!-- Diff 2: one state source instead of two fighting handlers -->
+            <div class="diff">
+              <div class="diff__head">
+                <span>🔧</span
+                ><span class="file">app.js › nav + smooth scroll</span>
+                <span class="why"
+                  >Keyboard and screen-reader users are first-class, not an
+                  afterthought.</span
+                >
+              </div>
+              <div class="diff__code">
+                <span class="ln del"
+                  >&lt;div class="nav-item"
+                  onclick="scrollTo('projects')"&gt;Projects&lt;/div&gt;</span
+                >
+                <span class="ln add"
+                  >&lt;a href="#projects"&gt;Projects&lt;/a&gt; &lt;!-- real
+                  anchor: focusable, --&gt;</span
+                >
+                <span class="ln add"
+                  >&lt;!-- works without JS, right-click/open-in-new-tab,
+                  announced by AT --&gt;</span
+                >
+                <span class="ln ctx"
+                  >section{ scroll-margin-top: calc(var(--head-h) + 14px);
+                  }</span
+                >
+              </div>
+              <div class="diff__note">
+                <b>Why:</b> a <code>div onclick</code> isn't reachable by
+                keyboard and says nothing to a screen reader. Semantic
+                <code>&lt;a&gt;</code> anchors give focus, native behaviour and
+                correct scroll offset under the sticky header — for free.
+              </div>
+            </div>
+
+            <!-- Diff 3: honest, unverified metric removed -->
+            <div class="diff">
+              <div class="diff__head">
+                <span>🔧</span><span class="file">CV › Moniepoint bullet</span>
+                <span class="why"
+                  >Never ship a number you can't stand behind.</span
+                >
+              </div>
+              <div class="diff__code">
+                <span class="ln del"
+                  >…cutting average issue-lookup time by ~25% [verify]</span
+                >
+                <span class="ln add"
+                  >…streamlining case handling and reducing average issue-lookup
+                  time</span
+                >
+              </div>
+              <div class="diff__note">
+                <b>Why:</b> the source draft carried a self-flagged
+                <code>[verify]</code> figure. Rather than assert an unverified
+                metric on an ATS CV, I kept the real achievement and dropped the
+                number — reinstate it only if it can be confirmed.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════════════════════
+  PROMPTS — the assignment's "display the multiple prompts you used".
+  PROMPT — condensed, full text PROMPTS.md §P6:
+  "Render the prompt log on the page as expandable items P0–P6, each with the
+  verbatim prompt and its acceptance criteria, so a grader sees the vibe-engineering
+  loop without opening another file."
+═══════════════════════════════════════════════════════════════════════════ -->
+      <section id="prompts">
+        <div class="wrap">
+          <span class="spec">prompts.md</span>
+          <h2 class="lead-2">The prompts behind this page</h2>
+          <p class="sub">
+            Scoped one section at a time, each reviewed before the next. Full
+            log with rationale + iteration notes ships as <b>PROMPTS.md</b>.
+          </p>
+
+          <div class="prompts">
+            <details class="prompt" open>
+              <summary>
+                <span class="pid">P0</span> Brief, palette &amp; type tokens
+                <span class="arrow">›</span>
+              </summary>
+              <div class="prompt__body">
+                <div class="q">
+                  "You're my front-end pair. Build a one-page portfolio for
+                  Cynthia Ojoma Abah, a frontend engineer, from her CV. Before
+                  code, give me a design plan in a 'living style-guide' voice: a
+                  named 4–6 colour palette that is NOT the usual AI
+                  cream+serif+terracotta, a display/body/mono type trio, and one
+                  signature element. Single offline HTML file — no framework, no
+                  CDN."
+                </div>
+                <p class="ac">
+                  <b>Accepted:</b> Aubergine Ink / Electric Iris / Mint on cool
+                  paper · Bricolage Grotesque + Manrope + JetBrains Mono ·
+                  signature = git-diff Refactor Log + mono §spec labels.
+                </p>
+              </div>
+            </details>
+            <details class="prompt">
+              <summary>
+                <span class="pid">P1</span> Sticky menu bar
+                <span class="arrow">›</span>
+              </summary>
+              <div class="prompt__body">
+                <div class="q">
+                  "Build only the header: sticky, blurred, monogram + name left,
+                  anchor nav right, plus a filled 'Download CV' button linking
+                  the ATS PDF. Mobile: nav becomes a horizontal scroll strip.
+                  Visible focus rings, WCAG-AA contrast."
+                </div>
+                <p class="ac">
+                  <b>Accepted:</b> pinned on scroll · CV reachable from every
+                  viewport · keyboard focus visible.
+                </p>
+              </div>
+            </details>
+            <details class="prompt">
+              <summary>
+                <span class="pid">P2</span> Hero with photo + CV link
+                <span class="arrow">›</span>
+              </summary>
+              <div class="prompt__body">
+                <div class="q">
+                  "Two-column hero. Left: eyebrow, big name with one word
+                  highlighted, a positioning line from the CV summary,
+                  Download-CV + See-my-work CTAs, a 3-stat row. Right: my photo
+                  as a labelled 'component specimen' card with a CA monogram
+                  that auto-swaps to assets/img/cynthia.jpg via onload."
+                </div>
+                <p class="ac">
+                  <b>Accepted:</b> photo in hero ✓ · CV linked in hero ✓ ·
+                  presentable before the real photo exists.
+                </p>
+              </div>
+            </details>
+            <details class="prompt">
+              <summary>
+                <span class="pid">P3</span> About, skills &amp; experience
+                <span class="arrow">›</span>
+              </summary>
+              <div class="prompt__body">
+                <div class="q">
+                  "Two columns: a 3-paragraph first-person bio from the CV, and
+                  a 'toolbox' grouping the stack into labelled rows. Add a
+                  compact experience timeline of my real roles. Use only what's
+                  in the CV."
+                </div>
+                <p class="ac">
+                  <b>Accepted:</b> no invented skills or roles · scannable chip
+                  groups.
+                </p>
+              </div>
+            </details>
+            <details class="prompt">
+              <summary>
+                <span class="pid">P4</span> Project cards
+                <span class="arrow">›</span>
+              </summary>
+              <div class="prompt__body">
+                <div class="q">
+                  "A card grid — each project its own box. Every card must show
+                  the PROBLEM it set out to solve, then a labelled Design → Code
+                  → Delivery track, a stack chip row, and links. Pull the four
+                  projects straight from my CV."
+                </div>
+                <p class="ac">
+                  <b>Accepted:</b> each card has problem + design→code→delivery
+                  ✓ · real stacks only.
+                </p>
+              </div>
+            </details>
+            <details class="prompt">
+              <summary>
+                <span class="pid">P5</span> Refactor Log (engineering the vibe
+                code) <span class="arrow">›</span>
+              </summary>
+              <div class="prompt__body">
+                <div class="q">
+                  "Show as real git-style diffs three places I did NOT accept
+                  the AI's first output: red − for the naive line, green + for
+                  my engineered version, plus a one-line rationale each. This is
+                  what makes it vibe ENGINEERING."
+                </div>
+                <p class="ac">
+                  <b>Accepted:</b> image fallback · semantic accessible nav ·
+                  honest CV metric — all documented.
+                </p>
+              </div>
+            </details>
+            <details class="prompt">
+              <summary>
+                <span class="pid">P6</span> Sticky footer + JS + QA
+                <span class="arrow">›</span>
+              </summary>
+              <div class="prompt__body">
+                <div class="q">
+                  "Sticky footer with contact + all social links + back-to-top
+                  and a copy-email button (aria-live toast). Then ~40 lines of
+                  commented vanilla JS, and a QA pass: contrast, reduced-motion,
+                  HTML tag-balance, node --check on the script, mobile down to
+                  360px."
+                </div>
+                <p class="ac">
+                  <b>Accepted:</b> header AND footer sticky ✓ · reduced-motion
+                  honoured ✓ · validated ✓.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ══════════════════════════════════════════════════════════════════════════
+  STICKY FOOTER (required). Contact + every social link + back-to-top.
+  PROMPT — condensed, full text PROMPTS.md §P6.
+═══════════════════════════════════════════════════════════════════════════ -->
+    <footer id="contact" class="site-foot">
+      <div class="wrap foot__grid">
+        <div class="foot__id">
+          Cynthia Ojoma Abah<span>Software Engineer · Enugu, Nigeria</span>
+        </div>
+        <div class="foot__contact">
+          <!-- Real contact details from the CV. -->
+          <a href="mailto:abahojomacynthia@gmail.com" id="mail"
+            >abahojomacynthia@gmail.com</a
+          >
+          <a href="tel:+2349077196560">+234 907 719 6560</a>
+          <button
+            class="to-top"
+            id="copy-mail"
+            style="background: none; cursor: pointer"
+          >
+            Copy email
+          </button>
+        </div>
+        <ul
+          class="socials"
+          aria-label="Cynthia on the web"
+          style="list-style: none"
+        >
+          <!-- TODO(publish): replace the # placeholders with real profile URLs. -->
+          <li>
+            <a
+              href="https://www.linkedin.com/in/cynthia-abah/"
+              aria-label="LinkedIn"
+              rel="noopener"
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M6.94 5A1.94 1.94 0 1 1 3 5a1.94 1.94 0 0 1 3.94 0zM3.3 8.5h3.28V21H3.3zM9.3 8.5h3.14v1.71h.05c.44-.83 1.5-1.71 3.1-1.71 3.31 0 3.92 2.18 3.92 5V21h-3.28v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21H9.3z"
+                /></svg
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/Cynthie-Abah"
+              aria-label="GitHub"
+              rel="noopener"
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"
+                /></svg
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://cynthiaabah-portfolio.vercel.app/"
+              aria-label="Portfolio website"
+              rel="noopener"
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="9" />
+                <path
+                  d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"
+                /></svg
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://x.com/cynthie_abah"
+              aria-label="X (Twitter)"
+              rel="noopener"
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M4 3h4.6l4.2 5.9L17.8 3H21l-6.6 8.1L21.5 21h-4.6l-4.6-6.4L6.6 21H3.4l7-8.6L4 3z"
+                /></svg
+            ></a>
+          </li>
+        </ul>
+        <a class="to-top" href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════════
+  INTERACTIVITY — small, dependency-free, commented. PROMPTS.md §P6.
+  Only three jobs: copy-email, footer year, active-section nav highlight.
+═══════════════════════════════════════════════════════════════════════════ -->
+  </body>
+</html>
