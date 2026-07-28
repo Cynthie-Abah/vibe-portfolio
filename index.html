@@ -3,6 +3,15 @@
   PERSONAL PORTFOLIO · Cynthia Ojoma Abah — Software Engineer
   ENSG AI Class · Assignment 2 · Built with "vibe ENGINEERING", not vibe coding.
 
+  WHAT CHANGED IN v2 (full changelog: DOCUMENTATION.md §700):
+   · New #ai-work section — eight video cards, Turing-style: poster, play badge,
+     hover preview, duration chip, accessible lightbox. Five AI products
+     (e-book, podcast, blog, translator, sentiment engine) + three full-stack.
+   · Every clip is capped at 60s and the cap is ENFORCED in main.js, not trusted.
+   · VIDEO_SCRIPTS.md ships the 60-second script behind each clip.
+   · DOCUMENTATION.md documents the whole build under Dewey decimal numbering.
+
+
   WHAT THAT MEANS HERE (read the header comment before judging the code):
   Every section below was produced by prompting an AI one scoped piece at a time,
   then REVIEWED and REFACTORED by hand. The prompt log lives in three places so it
@@ -96,6 +105,9 @@
       </button>
       <nav class="nav" id="primaryNav" aria-label="Primary">
         <a href="#about">About</a>
+        <!-- [build-note] New in v2: the AI showcase is the headline section now,
+             so it sits ahead of Projects in the reading order AND the nav. -->
+        <a href="#ai-work">AI Work</a>
         <a href="#projects">Projects</a>
         <a href="#refactor">Refactor Log</a>
         <a href="#prompts">Prompts</a>
@@ -127,7 +139,7 @@
               <span>Software&nbsp;Engineer</span><span>·</span>
               <span>React &amp; Next.js</span><span>·</span>
               <span>TypeScript</span><span>·</span> <span>Python</span
-              ><span>·</span>
+              ><span>·</span><span>AI products</span><span>·</span>
               <b>● Open to work</b>
             </p>
             <h1>
@@ -136,7 +148,8 @@
             <p class="hero__lead">
               2+ years turning product requirements into production web &amp;
               mobile UIs. I care about clean component architecture, tests, and
-              details that survive a real deadline.
+              details that survive a real deadline.and lately AI products: an
+              e-book, a podcast, a blog, a translator and a sentiment engine.
             </p>
             <div class="cta-row">
               <!-- The required CV link, front and centre in the hero. -->
@@ -161,7 +174,7 @@
                   <path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14" />
                 </svg>
               </a>
-              <a class="btn btn--ghost" href="#projects">See my work</a>
+              <a class="btn btn--ghost" href="#ai-work">See my work</a>
             </div>
             <div class="hero__stats">
               <div class="stat">
@@ -331,6 +344,599 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+          <!-- ══════════════════════════════════════════════════════════════════════════
+  AI WORK — VIDEO CARDS (new in v2). PROMPT — condensed, full text PROMPTS.md §P7:
+  "Add a video-card grid in the style of Turing Tech's cards: poster + play badge,
+  a muted preview that starts on hover/focus, a running duration chip, and a click
+  that opens an accessible lightbox with real controls. Every clip is capped at 60s
+  and the card must SAY SO — surface the duration from the file itself instead of
+  trusting a hand-typed label. Cards must still work with JavaScript switched off."
+
+  [build-note] The <a href="assets/video/*.mp4"> IS the component. With JS the link
+  is intercepted and the clip opens in the lightbox; without JS the browser just
+  opens the file. Nothing here depends on the script running.
+
+  [build-note] Same auto-upgrade trick as the hero photo: until a real clip is
+  dropped into assets/video/, each stage renders a designed "slate" instead of a
+  broken player. loadedmetadata flips .has-clip and the poster fades in.
+
+  [build-note] The 60-second rule from the brief is ENFORCED, not documented:
+  main.js reads video.duration and marks any clip over 60s with a red chip, so an
+  over-length upload fails loudly in review instead of shipping quietly.
+═══════════════════════════════════════════════════════════════════════════ -->
+ <section id="ai-work" class="band">
+        <div class="wrap">
+          <span class="spec">ai-work.tsx</span>
+          <h2 class="lead-2">AI products, in 60 seconds each.</h2>
+          <p class="sub">
+            Five things I built with AI in the loop — an e-book, a podcast, a
+            blog, a translator and a sentiment engine. Read the card, or press
+            play and watch the thing actually run. No clip runs past a minute.
+          </p>
+
+          <div class="vcards">
+            <!-- ── 1 · E-BOOK ───────────────────────────────────────────────── -->
+            <!-- TODO(cynthia): confirm title, links and the three track lines. -->
+            <article class="vcard" data-slug="ebook">
+              <div class="vcard__stage">
+                <a
+                  class="vcard__open"
+                  href="assets/vid/ebook.mp4"
+                  aria-label="Play the 60-second walkthrough of the e-book project"
+                >
+                  <video
+                    class="vcard__video"
+                    src="assets/vid/ebook.mp4"
+                    /* poster="assets/poster/ebook.jpg" */
+                    preload="metadata"
+                    muted
+                    loop
+                    playsinline
+                  ></video>
+                  <span class="vcard__slate" aria-hidden="true">
+                    <span class="vcard__slate-id">ebook.mp4</span>
+                  </span>
+                  <span class="vcard__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5.14v13.72L19 12 8 5.14z" />
+                    </svg>
+                  </span>
+                </a>
+              </div>
+              <div class="vcard__body">
+                <div class="card__top">
+                  <span class="dot dot--live"></span><span>ai-ebook</span
+                  ><span class="card__tag">AI · writing pipeline</span>
+                </div>
+                <h3>The E-book — from prompt log to a finished download</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> everything I had learned about building with
+                  AI lived in scattered chat logs and README files. None of it
+                  was readable by anyone but me, and none of it was shareable.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >Outlined the chapters first, then set a cover, type scale
+                      and page furniture so every chapter renders the same
+                      way.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >Drafted chapter by chapter with scoped prompts, edited
+                      every paragraph by hand, and built the Markdown → PDF /
+                      EPUB export as a repeatable step.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Published as a downloadable PDF and EPUB with a working
+                      table of contents on any reader.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">LLM prompting</span
+                  ><span class="chip">Markdown</span
+                  ><span class="chip">EPUB / PDF</span
+                  ><span class="chip">Editorial QA</span>
+                </div>
+                <div class="card__links">
+                  <a href="https://selar.com/50qn951v57" rel="noopener">Read the e-book ↗</a>
+                  <a href="#" rel="noopener">Prompt log ↗</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- ── 2 · PODCAST ──────────────────────────────────────────────── -->
+            <article class="vcard" data-slug="podcast">
+              <div class="vcard__stage">
+                <a
+                  class="vcard__open"
+                  href="assets/vid/podcast.mp4"
+                  aria-label="Play the 60-second walkthrough of the podcast project"
+                >
+                  <video
+                    class="vcard__video"
+                    src="assets/vid/podcast.mp4"
+                    preload="metadata"
+                    muted
+                    loop
+                    playsinline
+                  ></video>
+                  <span class="vcard__slate" aria-hidden="true">
+                    <span class="vcard__slate-id">podcast.mp4</span>
+                    <span class="vcard__slate-note"
+                      >drop the clip in assets/video/</span
+                    >
+                  </span>
+                  <span class="vcard__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5.14v13.72L19 12 8 5.14z" />
+                    </svg>
+                  </span>
+                  <span class="vcard__time" data-dur>≤60s</span>
+                </a>
+              </div>
+              <div class="vcard__body">
+                <div class="card__top">
+                  <span class="dot dot--live"></span><span>ai-podcast</span
+                  ><span class="card__tag">AI · audio</span>
+                </div>
+                <h3>The Podcast — a scripted show, voiced end to end</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> podcasting normally needs a studio, a co-host
+                  and an editor. I wanted to find out how far a single engineer
+                  with a script and a text-to-speech model could get.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >Fixed the format before recording: episode length, a
+                      two-voice structure, and a cold-open that states the
+                      question in one line.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >Generated a first-pass script with an LLM, rewrote it for
+                      spoken rhythm, then synthesised the voices and cut the
+                      timing in the edit.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Exported with cover art and show notes, published to a
+                      public feed anyone can subscribe to.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">LLM scripting</span
+                  ><span class="chip">Text-to-speech</span
+                  ><span class="chip">Audio editing</span
+                  ><span class="chip">RSS</span>
+                </div>
+                <div class="card__links">
+                  <a href="https://notebook.google.com/notebook/c112911a-c491-4606-af0d-9bb5b9d9bbe1/artifact/043556d4-93f1-4963-8864-f0369dc00348?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_" rel="noopener">Listen ↗</a>
+                  <a href="/assets/The_Jollof_Wars_Podcast_Script.pdf" rel="noopener">Show notes ↗</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- ── 3 · BLOG ─────────────────────────────────────────────────── -->
+            <article class="vcard" data-slug="blog">
+              <div class="vcard__stage">
+                <a
+                  class="vcard__open"
+                  href="assets/vid/blog.mp4"
+                  aria-label="Play the 60-second walkthrough of the blog project"
+                >
+                  <video
+                    class="vcard__video"
+                    src="assets/vid/blog.mp4"
+                    preload="metadata"
+                    muted
+                    loop
+                    playsinline
+                  ></video>
+                  <span class="vcard__slate" aria-hidden="true">
+                    <span class="vcard__slate-id">blog.mp4</span>
+                    <span class="vcard__slate-note"
+                      >drop the clip in assets/video/</span
+                    >
+                  </span>
+                  <span class="vcard__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5.14v13.72L19 12 8 5.14z" />
+                    </svg>
+                  </span>
+                  <span class="vcard__time" data-dur>≤60s</span>
+                </a>
+              </div>
+              <div class="vcard__body">
+                <div class="card__top">
+                  <span class="dot dot--live"></span><span>ai-blog</span
+                  ><span class="card__tag">AI · Next.js</span>
+                </div>
+                <h3>The Blog — a publishing surface I actually own</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> Writing on someone else's platform means giving up control over the reading experience, design, analytics, and publishing workflow. I wanted a blog that was fast, accessible, and entirely my own, where every aspect—from typography to performance—could be tailored to my preferences.
+
+                </p>
+                 <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >Set the reading column, type scale and code-block
+                      treatment first — the post page is the product, the index
+                      is just a door.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >Next.js with Markdown-driven posts, static rendering, tag
+                      filtering and an AI-assisted drafting step I edit before
+                      anything publishes.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Deployed on Vercel with real metadata, share cards and a
+                      Lighthouse pass on mobile.</span
+                    >
+                  </div>
+                </div> 
+                <div class="card__stack chips">
+                  <span class="chip">Next.js</span
+                  ><span class="chip">TypeScript</span
+                  ><span class="chip">Markdown</span
+                  ><span class="chip">Tailwind CSS</span
+                  ><span class="chip">Vercel</span>
+                </div>
+                <div class="card__links">
+                  <a href="https://cozy-inkwell-46.lovable.app/" rel="noopener">Live link ↗</a>
+                  <a href="https://github.com/Cynthie-Abah/vibe-blog-.git" rel="noopener">GitHub ↗</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- ── 4 · TRANSLATION ──────────────────────────────────────────── -->
+            <article class="vcard" data-slug="translate">
+              <div class="vcard__stage">
+                <a
+                  class="vcard__open"
+                  href="assets/video/translate.mp4"
+                  aria-label="Play the 60-second walkthrough of the translation project"
+                >
+                  <video
+                    class="vcard__video"
+                    src="assets/video/translate.mp4"
+                    poster="assets/poster/translate.jpg"
+                    preload="metadata"
+                    muted
+                    loop
+                    playsinline
+                  ></video>
+                  <span class="vcard__slate" aria-hidden="true">
+                    <span class="vcard__slate-id">translate.mp4</span>
+                    <span class="vcard__slate-note"
+                      >drop the clip in assets/video/</span
+                    >
+                  </span>
+                  <span class="vcard__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5.14v13.72L19 12 8 5.14z" />
+                    </svg>
+                  </span>
+                  <span class="vcard__time" data-dur>≤60s</span>
+                </a>
+              </div>
+              <div class="vcard__body">
+                <div class="card__top">
+                  <span class="dot dot--live"></span><span>ai-translate</span
+                  ><span class="card__tag">AI · language</span>
+                </div>
+                <h3>The Translator — English ⇄ Nigerian languages</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> general translation tools handle Igbo, Yoruba
+                  and Hausa badly — tone marks get dropped and idiom gets
+                  flattened. A local audience deserves better than a literal
+                  word swap.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >One job per screen: paste text, pick a language pair, get
+                      the translation plus a plain-English note on what shifted
+                      in meaning.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >React front end over an LLM translation endpoint, with a
+                      prompt that pins tone and register, debounced input, and
+                      graceful failure when the API is unreachable.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Shipped as a hosted web app, checked against native
+                      speakers on a sample set before release.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">React</span
+                  ><span class="chip">TypeScript</span
+                  ><span class="chip">LLM API</span
+                  ><span class="chip">Prompt design</span>
+                </div>
+                <div class="card__links">
+                  <a href="#" rel="noopener">Live link ↗</a>
+                  <a href="#" rel="noopener">GitHub ↗</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- ── 5 · SENTIMENT ANALYSIS ───────────────────────────────────── -->
+            <article class="vcard" data-slug="sentiment">
+              <div class="vcard__stage">
+                <a
+                  class="vcard__open"
+                  href="assets/vid/sentiment.mp4"
+                  aria-label="Play the 60-second walkthrough of the sentiment analysis project"
+                >
+                  <video
+                    class="vcard__video"
+                    src="assets/vid/sentiment.mp4"
+                    preload="metadata"
+                    muted
+                    loop
+                    playsinline
+                  ></video>
+                  <span class="vcard__slate" aria-hidden="true">
+                    <span class="vcard__slate-id">sentiment.mp4</span>
+                  </span>
+                  <span class="vcard__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5.14v13.72L19 12 8 5.14z" />
+                    </svg>
+                  </span>
+                  <span class="vcard__time" data-dur>≤60s</span>
+                </a>
+              </div>
+              <div class="vcard__body">
+                <div class="card__top">
+                  <span class="dot dot--live"></span><span>ai-sentiment</span
+                  ><span class="card__tag">AI · classification</span>
+                </div>
+                <h3>Sentiment Engine — reading a thousand reviews at once</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> a support inbox or a review page tells you
+                  everything and nothing. Nobody reads a thousand comments, so
+                  the signal in them never reaches the people who could act.
+                </p>
+                <div class="track">
+                  <div class="track-step">
+                    <span class="k">Design</span
+                    ><span class="v"
+                      >A dashboard that answers one question on sight — is the
+                      mood moving? — then lets you drill into the comments
+                      behind any bar.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Code</span
+                    ><span class="v"
+                      >Batch classification into positive / neutral / negative
+                      with a confidence score, cached results, and a React chart
+                      layer over the scored output.</span
+                    >
+                  </div>
+                  <div class="track-step">
+                    <span class="k">Delivery</span
+                    ><span class="v"
+                      >Accepts a CSV of real feedback and returns a scored,
+                      filterable view plus an export.</span
+                    >
+                  </div>
+                </div>
+                <div class="card__stack chips">
+                  <span class="chip">Python</span><span class="chip">NLP</span
+                  ><span class="chip">React</span
+                  ><span class="chip">Charts</span><span class="chip">CSV</span>
+                </div>
+                <div class="card__links">
+                  <a href="#" rel="noopener">Live link ↗</a>
+                  <a href="#" rel="noopener">GitHub ↗</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Optional per the brief: three full-stack builds get the same
+              treatment so the video language is consistent across the page. -->
+          <h3 class="vcards__split">
+            <span>Full-stack builds, same 60-second format</span>
+          </h3>
+          <div class="vcards">
+            <!-- ── 6 · ONBOARDING TOUR WIDGET ───────────────────────────────── -->
+            <!-- <article class="vcard" data-slug="tour-widget">
+              <div class="vcard__stage">
+                <a
+                  class="vcard__open"
+                  href="assets/video/tour-widget.mp4"
+                  aria-label="Play the 60-second walkthrough of the onboarding tour widget"
+                >
+                  <video
+                    class="vcard__video"
+                    src="assets/video/tour-widget.mp4"
+                    poster="assets/poster/tour-widget.jpg"
+                    preload="metadata"
+                    muted
+                    loop
+                    playsinline
+                  ></video>
+                  <span class="vcard__slate" aria-hidden="true">
+                    <span class="vcard__slate-id">tour-widget.mp4</span>
+                    <span class="vcard__slate-note"
+                      >drop the clip in assets/video/</span
+                    >
+                  </span>
+                  <span class="vcard__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5.14v13.72L19 12 8 5.14z" />
+                    </svg>
+                  </span>
+                  <span class="vcard__time" data-dur>≤60s</span>
+                </a>
+              </div>
+              <div class="vcard__body">
+                <div class="card__top">
+                  <span class="dot dot--live"></span><span>tour-widget</span
+                  ><span class="card__tag">full-stack · npm</span>
+                </div>
+                <h3>Embeddable Onboarding Tour Widget</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> every product team rebuilds the same first-run
+                  tour from scratch. One configurable widget should drop into
+                  any app instead.
+                </p>
+                <div class="card__stack chips">
+                  <span class="chip">React</span
+                  ><span class="chip">Next.js</span
+                  ><span class="chip">TypeScript</span
+                  ><span class="chip">React Query</span
+                  ><span class="chip">Supabase</span
+                  ><span class="chip">npm</span>
+                </div>
+                <div class="card__links">
+                  <a href="#projects">Full case ↓</a>
+                </div>
+              </div>
+            </article> -->
+
+            <!-- ── 7 · FRAMEZ ───────────────────────────────────────────────── -->
+            <article class="vcard" data-slug="framez">
+              <div class="vcard__stage">
+                <a
+                  class="vcard__open"
+                  href="assets/vid/framez.MOV"
+                  aria-label="Play the 60-second walkthrough of Framez"
+                >
+                  <video
+                    class="vcard__video"
+                    src="assets/vid/framez.MOV"
+                    preload="metadata"
+                    muted
+                    loop
+                    playsinline
+                  ></video>
+                  <span class="vcard__slate" aria-hidden="true">
+                    <span class="vcard__slate-id">framez.MOV</span>
+                  </span>
+                  <span class="vcard__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5.14v13.72L19 12 8 5.14z" />
+                    </svg>
+                  </span>
+                  <span class="vcard__time" data-dur>≤60s</span>
+                </a>
+              </div>
+              <div class="vcard__body">
+                <div class="card__top">
+                  <span class="dot dot--live"></span><span>framez</span
+                  ><span class="card__tag">full-stack · mobile</span>
+                </div>
+                <h3>Framez — Mobile Social App</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> a social feed lives or dies on how fast it
+                  feels. Auth, posting and interactions had to stay instant on a
+                  mid-range Android phone.
+                </p>
+                <div class="card__stack chips">
+                  <span class="chip">React Native</span
+                  ><span class="chip">Expo</span><span class="chip">Clerk</span
+                  ><span class="chip">Convex</span
+                  ><span class="chip">Tailwind CSS</span>
+                </div>
+                <div class="card__links">
+                  <a href="#projects">Full case ↓</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- ── 8 · AUDIOPHILE ───────────────────────────────────────────── -->
+            <!-- <article class="vcard" data-slug="audiophile">
+              <div class="vcard__stage">
+                <a
+                  class="vcard__open"
+                  href="assets/video/audiophile.mp4"
+                  aria-label="Play the 60-second walkthrough of Audiophile"
+                >
+                  <video
+                    class="vcard__video"
+                    src="assets/video/audiophile.mp4"
+                    poster="assets/poster/audiophile.jpg"
+                    preload="metadata"
+                    muted
+                    loop
+                    playsinline
+                  ></video>
+                  <span class="vcard__slate" aria-hidden="true">
+                    <span class="vcard__slate-id">audiophile.mp4</span>
+                    <span class="vcard__slate-note"
+                      >drop the clip in assets/video/</span
+                    >
+                  </span>
+                  <span class="vcard__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5.14v13.72L19 12 8 5.14z" />
+                    </svg>
+                  </span>
+                  <span class="vcard__time" data-dur>≤60s</span>
+                </a>
+              </div>
+              <div class="vcard__body">
+                <div class="card__top">
+                  <span class="dot dot--live"></span><span>audiophile</span
+                  ><span class="card__tag">full-stack · commerce</span>
+                </div>
+                <h3>Audiophile — E-commerce Site</h3>
+                <p class="card__problem">
+                  <b>Problem:</b> a storefront that loses the cart on refresh
+                  loses the sale. Listings, filtering and checkout all had to
+                  hold state without feeling heavy.
+                </p>
+                <div class="card__stack chips">
+                  <span class="chip">Next.js</span
+                  ><span class="chip">Convex</span
+                  ><span class="chip">TypeScript</span
+                  ><span class="chip">Redux</span
+                  ><span class="chip">React Query</span>
+                </div>
+                <div class="card__links">
+                  <a href="#projects">Full case ↓</a>
+                </div>
+              </div>
+            </article> -->
           </div>
         </div>
       </section>
@@ -1078,6 +1684,7 @@
                 </p>
               </div>
             </details>
+
             <details class="prompt">
               <summary>
                 <span class="pid">P4</span> Project cards
@@ -1130,6 +1737,70 @@
                 <p class="ac">
                   <b>Accepted:</b> header AND footer sticky ✓ · reduced-motion
                   honoured ✓ · validated ✓.
+                </p>
+              </div>
+            </details>
+            <!-- v2 · the video-card build -->
+            <details class="prompt">
+              <summary>
+                <span class="pid">P7</span> Video cards, Turing-style
+                <span class="arrow">›</span>
+              </summary>
+              <div class="prompt__body">
+                <div class="q">
+                  "Add a video-card grid modelled on Turing Tech's cards: 16:9
+                  poster, centred play badge, a muted preview that starts on
+                  hover or keyboard focus, a duration chip, and a click that
+                  opens one shared lightbox with real controls. Reuse the
+                  existing tokens — aubergine, iris, mint, JetBrains Mono. Cards
+                  must still work with JavaScript switched off, and until a real
+                  clip exists each stage renders a designed slate rather than a
+                  broken player."
+                </div>
+                <p class="ac">
+                  <b>Accepted:</b> eight cards ✓ · one dialog, not eight players
+                  ✓ · plain link fallback with JS off ✓ · no broken media before
+                  the clips land ✓.
+                </p>
+              </div>
+            </details>
+            <details class="prompt">
+              <summary>
+                <span class="pid">P8</span> The 60-second rule, enforced
+                <span class="arrow">›</span>
+              </summary>
+              <div class="prompt__body">
+                <div class="q">
+                  "The brief caps every clip at 60 seconds. Don't print a label
+                  I have to keep true by hand — read duration off the file on
+                  loadedmetadata, format it as m:ss, and mark anything over the
+                  cap in the delete-red so an over-length upload is obvious in
+                  review."
+                </div>
+                <p class="ac">
+                  <b>Accepted:</b> duration comes from the file ✓ · over-length
+                  clips flagged, not hidden ✓ (this is Refactor #4).
+                </p>
+              </div>
+            </details>
+            <details class="prompt">
+              <summary>
+                <span class="pid">P9</span> Sixty-second scripts per project
+                <span class="arrow">›</span>
+              </summary>
+              <div class="prompt__body">
+                <div class="q">
+                  "For each AI project — e-book, podcast, blog, translator,
+                  sentiment engine — write a 60-second video script on a fixed
+                  beat sheet: hook 0–5s, problem 5–15s, build 15–40s, result
+                  40–55s, close 55–60s. Give me voiceover, on-screen text and a
+                  shot list per beat, and keep the word count inside 150 so it
+                  can actually be read in a minute."
+                </div>
+                <p class="ac">
+                  <b>Accepted:</b> one script per card ✓ · same beat sheet
+                  across all eight ✓ · word budget checked ✓ — full scripts ship
+                  as <b>VIDEO_SCRIPTS.md</b>.
                 </p>
               </div>
             </details>

@@ -923,6 +923,312 @@ section {
 }
 
 /* ═══ RESPONSIVE ═══ */
+/* ═══════════════════════════════════════════════════════════════════════════
+   VIDEO CARDS + LIGHTBOX  (v2 · §400 in DOCUMENTATION.md)
+
+   Modelled on Turing Tech's video cards — poster, centred play badge, hover
+   preview, duration chip, click-to-open player — but rebuilt on THIS page's
+   tokens so it reads as one design system, not a bolted-on widget. Nothing
+   below introduces a new colour, radius or typeface: every value resolves to a
+   custom property declared at the top of this file.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Grid. auto-fit rather than a fixed column count so five AI cards and three
+   full-stack cards both settle without a special case. */
+.vcards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.5rem);
+  margin-top: 1.7rem;
+}
+
+/* The split heading between the AI grid and the optional full-stack grid. */
+.vcards__split {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.vcards__split::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line-2);
+}
+
+.vcard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+.vcard:hover,
+.vcard:focus-within {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: var(--line-2);
+}
+
+/* ── The stage ───────────────────────────────────────────────────────────────
+   A fixed 16:9 box, so a card holds its height before any media loads and the
+   grid never reflows mid-scroll. */
+.vcard__stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+  overflow: hidden;
+}
+.vcard__open {
+  position: absolute;
+  inset: 0;
+  display: block;
+  cursor: pointer;
+}
+.vcard__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+/* .has-clip is set by main.js on loadedmetadata — the same auto-upgrade
+   contract as the hero photo. Until then the slate below is what you see. */
+.vcard.has-clip .vcard__video {
+  opacity: 1;
+}
+
+/* The slate: a designed empty state, not a broken player. Blueprint grid on
+   aubergine, the expected filename in mono, and where to put the file. */
+.vcard__slate {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.45rem;
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 26px 26px;
+  transition: opacity 0.35s ease;
+}
+.vcard.has-clip .vcard__slate {
+  opacity: 0;
+  pointer-events: none;
+}
+.vcard__slate-id {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #cdbdf5;
+}
+.vcard__slate-note {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+/* ── Play badge ─────────────────────────────────────────────────────────────
+   Iris fill, mint ring on hover — the page's two accents doing one job each. */
+.vcard__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--iris);
+  color: #fff;
+  box-shadow: 0 10px 30px -8px rgba(35, 23, 51, 0.7);
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+.vcard__play svg {
+  width: 24px;
+  height: 24px;
+  margin-left: 3px; /* optical centring of the triangle */
+}
+.vcard__open:hover .vcard__play,
+.vcard__open:focus-visible .vcard__play {
+  transform: scale(1.09);
+  background: var(--mint-2);
+}
+
+/* ── Duration chip ──────────────────────────────────────────────────────────
+   Filled from video.duration by main.js. Turns delete-red past 60s so an
+   over-length clip is caught in review instead of shipping. */
+.vcard__time {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: rgba(35, 23, 51, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.16rem 0.45rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+.vcard__time.is-over {
+  background: var(--del);
+  border-color: var(--del);
+}
+.vcard__time.is-over::after {
+  content: " over 60s";
+  font-weight: 500;
+}
+
+/* Progress hairline — set as a width by main.js during the hover preview.
+   The one piece of motion on the card, and it carries information. */
+.vcard__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.14);
+}
+.vcard__progress i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--mint);
+}
+
+.vcard__body {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+/* Reuse the project card's own furniture inside the video card so the two
+   sections speak the same language. */
+.vcard__body .card__top {
+  border-bottom: 1px solid var(--line);
+  border-top: 0;
+}
+.vcard__body h3 {
+  font-size: 1.12rem;
+  margin: 0.95rem 0.95rem 0;
+}
+.vcard__body .card__problem,
+.vcard__body .track,
+.vcard__body .card__stack,
+.vcard__body .card__links {
+  margin-left: 0.95rem;
+  margin-right: 0.95rem;
+}
+.vcard__body .card__links {
+  margin-top: auto;
+  padding-bottom: 1rem;
+}
+
+/* ═══ LIGHTBOX ═══ one dialog for all eight cards. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.75rem, 3vw, 2rem);
+}
+.lightbox[hidden] {
+  display: none;
+}
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(35, 23, 51, 0.78);
+  backdrop-filter: blur(6px);
+}
+.lightbox__panel {
+  position: relative;
+  width: min(980px, 100%);
+  background: var(--panel);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  animation: lb-rise 0.22s ease both;
+}
+@keyframes lb-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.lightbox__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+.lightbox__dur {
+  color: var(--iris);
+  font-weight: 600;
+}
+.lightbox__x {
+  margin-left: auto;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-2);
+  background: var(--paper-2);
+  color: var(--ink);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.lightbox__x svg {
+  width: 16px;
+  height: 16px;
+}
+.lightbox__x:hover {
+  background: var(--ink);
+  color: #fff;
+}
+.lightbox__video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  display: block;
+}
+.lightbox__title {
+  font-family: var(--disp);
+  font-size: 1.05rem;
+  padding: 0.85rem 0.95rem 1rem;
+}
+/* Stop the page scrolling behind an open dialog. */
+body.is-locked {
+  overflow: hidden;
+}
+
 @media (max-width: 900px) {
   .hero__grid,
   .about__grid {
@@ -932,6 +1238,11 @@ section {
     order: 1;
   }
   .cards {
+    grid-template-columns: 1fr;
+  }
+  /* One video card per row below 900px — a 16:9 stage squeezed into half a
+     phone-width viewport is unreadable. */
+  .vcards {
     grid-template-columns: 1fr;
   }
   .diff__head {
@@ -995,6 +1306,14 @@ section {
   }
   .socials {
     margin-left: 0;
+  }
+  .vcard__play {
+    width: 48px;
+    height: 48px;
+  }
+  .vcard__play svg {
+    width: 20px;
+    height: 20px;
   }
   .xp-row {
     grid-template-columns: auto 1fr;
